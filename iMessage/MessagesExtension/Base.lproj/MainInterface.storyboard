@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ObA-dk-sSI">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Messages View Controller-->
+        <scene sceneID="7MM-of-jgj">
+            <objects>
+                <viewController id="ObA-dk-sSI" customClass="MessagesViewController" customModule="MessagesExtension" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qkL-Od-lgU"/>
+                        <viewControllerLayoutGuide type="bottom" id="n38-gi-rB5"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleAspectFit" id="zMn-AG-sqS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="0nT-d3-vFf">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="GYA-Un-eRk">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="10"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="lVi-KI-zCp">
+                                        <rect key="frame" x="10" y="10" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="ObA-dk-sSI" id="nWh-8S-n0Z"/>
+                                    <outlet property="delegate" destination="ObA-dk-sSI" id="xcc-p9-bXY"/>
+                                </connections>
+                            </collectionView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="70" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Xgo-N9-hed">
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="ObA-dk-sSI" id="skv-1o-jSH"/>
+                                    <outlet property="delegate" destination="ObA-dk-sSI" id="3Ik-ZZ-JPC"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="n38-gi-rB5" firstAttribute="top" secondItem="0nT-d3-vFf" secondAttribute="bottom" constant="-44" id="7yV-cl-iGx"/>
+                            <constraint firstItem="Xgo-N9-hed" firstAttribute="width" secondItem="zMn-AG-sqS" secondAttribute="width" multiplier="0.2" id="855-M4-kI0"/>
+                            <constraint firstItem="0nT-d3-vFf" firstAttribute="top" secondItem="qkL-Od-lgU" secondAttribute="bottom" id="D1D-YO-haa"/>
+                            <constraint firstItem="Xgo-N9-hed" firstAttribute="leading" secondItem="zMn-AG-sqS" secondAttribute="leading" id="Eht-1R-WM7"/>
+                            <constraint firstItem="0nT-d3-vFf" firstAttribute="leading" secondItem="Xgo-N9-hed" secondAttribute="trailing" id="Eo4-h3-1di"/>
+                            <constraint firstItem="n38-gi-rB5" firstAttribute="top" secondItem="Xgo-N9-hed" secondAttribute="bottom" id="UDP-IZ-ypv"/>
+                            <constraint firstAttribute="trailing" secondItem="0nT-d3-vFf" secondAttribute="trailing" id="Z2G-kP-8jc"/>
+                            <constraint firstItem="Xgo-N9-hed" firstAttribute="top" secondItem="qkL-Od-lgU" secondAttribute="bottom" id="nZP-x1-Ptk"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="itemClassTableview" destination="Xgo-N9-hed" id="anD-cI-7aG"/>
+                        <outlet property="itemCollectionView" destination="0nT-d3-vFf" id="3bf-lK-GOe"/>
+                        <outlet property="itemFlowLayout" destination="GYA-Un-eRk" id="Naz-qw-6Or"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="X47-rx-isc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-510" y="63"/>
+        </scene>
+    </scenes>
+</document>
