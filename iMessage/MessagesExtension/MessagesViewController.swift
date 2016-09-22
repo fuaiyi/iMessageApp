@@ -14,7 +14,7 @@ class MessagesViewController: MSMessagesAppViewController
     
     fileprivate let itemTableViewCellID = "ItemTableViewCell"
     fileprivate let itemCollectionViewCellID = "ItemCollectionViewCell"
-
+    
     @IBOutlet weak var itemClassTableview: UITableView!
     @IBOutlet weak var itemCollectionView: UICollectionView!
     @IBOutlet weak var itemFlowLayout: UICollectionViewFlowLayout!
@@ -29,7 +29,7 @@ class MessagesViewController: MSMessagesAppViewController
         
         setupTableview()
         setupCollectionView()
-    
+        
         
     }
     
@@ -51,15 +51,15 @@ class MessagesViewController: MSMessagesAppViewController
         itemFlowLayout.itemSize =  CGSize(width: spaace, height: spaace)
         
     }
-
+    
 }
 
 extension MessagesViewController : UITableViewDelegate,UITableViewDataSource
-{
+{//tableview 代理
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-            return 8
+        return 8
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
@@ -83,7 +83,7 @@ extension MessagesViewController : UITableViewDelegate,UITableViewDataSource
 }
 
 extension MessagesViewController : UICollectionViewDelegate,UICollectionViewDataSource
-{
+{///collectioview代理
     
     func numberOfSections(in collectionView: UICollectionView) -> Int
     {
@@ -110,30 +110,64 @@ extension MessagesViewController : UICollectionViewDelegate,UICollectionViewData
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
-    {
+    {//发送表情
         
+        //1.获取当前的获取的消息会话
         guard let activeConversation = self.activeConversation else { return }
         
-        let url = Bundle.main.url(forResource: String(indexPath.section + 1) + "_" + String(indexPath.item + 1), withExtension: "gif")
+        //2.获取表情资源url
+        let imageName = String(indexPath.section + 1) + "_" + String(indexPath.item + 1)
+        guard let url = Bundle.main.url(forResource:imageName, withExtension: "gif") else { return }
         
+        /*
+        //3.1发送Sticker表情对象
         do
         {
-            let sticker = try MSSticker(contentsOfFileURL: url!, localizedDescription: "")
+            //转换成表情Sticker对象
+            let sticker = try MSSticker(contentsOfFileURL: url, localizedDescription: "")
+            //发送Sticker表情
             activeConversation.insert(sticker, completionHandler: nil)
+            
         }
         catch
         {
             print(error)
         }
-
+        
+        
+        //3.2发送MSMessage(自定义发送表情UI)
+        let layout = MSMessageTemplateLayout()
+        layout.image = UIImage(named: imageName + ".gif")
+        layout.caption = "caption"
+        layout.subcaption = "subcaption"
+        layout.trailingCaption = "trailingCaption"
+        layout.trailingSubcaption = "trailingSubcaption"
+        layout.imageTitle = "imageTitle"
+        layout.imageSubtitle = "imageSubtitle"
+        
+        let message = MSMessage()
+        message.layout = layout
+        
+        activeConversation.insert(message, completionHandler: nil)
+        
+        
+        //3.3发送文字消息
+        activeConversation.insertText("https://github.com/fuaiyi/iMessageApp ", completionHandler: nil)
+        */
+        
+        //3.4发送附件(必须是fileUrl)
+        activeConversation.insertAttachment(url, withAlternateFilename: "", completionHandler: nil)//
+        
+        
+        
     }
- 
+    
 }
 
 
 extension MessagesViewController : UIScrollViewDelegate
 {
- 
+    //设置滑动选中
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView)
     {
         
@@ -146,7 +180,7 @@ extension MessagesViewController : UIScrollViewDelegate
     
     func scrollViewDidScroll(_ scrollView: UIScrollView)
     {
-    
+        
         if scrollView == itemCollectionView && !isSelect
         {
             let spaace = ( UIScreen.main.bounds.width * 0.8 - (4 + 1) * 10 ) / 4 + 10
@@ -155,7 +189,7 @@ extension MessagesViewController : UIScrollViewDelegate
             self.itemClassTableview.selectRow(at: indePath, animated: true, scrollPosition: .top)
             self.itemClassTableview.scrollToRow(at: indePath, at: .middle, animated: true)
         }
-    
+        
     }
     
 }
